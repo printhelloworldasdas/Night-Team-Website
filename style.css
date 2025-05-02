@@ -544,3 +544,64 @@ footer {
         padding: 1rem;
     }
 }
+
+/* Snake Game Easter Egg */
+#snake-game-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.9);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+#snake-game {
+    background-color: var(--darker-bg);
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid var(--accent-color);
+    box-shadow: 0 0 20px var(--accent-color);
+}
+
+#snake-canvas {
+    background-color: var(--dark-bg);
+    border: 1px solid var(--accent-color);
+    display: block;
+    margin: 0 auto;
+}
+
+#snake-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+#snake-controls button {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+#snake-controls button:hover {
+    background-color: #5a0b9d;
+    transform: translateY(-2px);
+}
+
+#snake-score {
+    color: white;
+    font-family: 'Courier New', monospace;
+    font-size: 1.1rem;
+}
+
+.hidden {
+    display: none !important;
+}
