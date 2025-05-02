@@ -1,4 +1,31 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // Create animated stars background
+    const starsContainer = document.querySelector('.stars-container');
+    const starCount = 200;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        
+        // Random star properties
+        const size = Math.random() * 3;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const opacity = Math.random();
+        const duration = 2 + Math.random() * 5 + 's';
+        const delay = Math.random() * 5 + 's';
+        
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.setProperty('--opacity', opacity);
+        star.style.setProperty('--duration', duration);
+        star.style.animationDelay = delay;
+        
+        starsContainer.appendChild(star);
+    }
+
     // Typing effect for the home page title
     if (document.querySelector('.hero h1')) {
         const heroTitle = document.querySelector('.hero h1');
@@ -16,15 +43,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 100);
     }
     
-    // Parallax effect for the background stars
-    document.body.addEventListener('mousemove', function(e) {
-        const x = e.clientX / window.innerWidth;
-        const y = e.clientY / window.innerHeight;
-        
-        document.body.style.backgroundPosition = 
-            `${x * 30}px ${y * 30}px, ${-x * 30}px ${-y * 30}px`;
-    });
-    
     // Moon phase animation
     const moon = document.querySelector('.moon-phase');
     if (moon) {
@@ -38,24 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 `inset ${shadowPosition}px 0px 0 ${shadowSize}px var(--moon-glow)`;
         }, 100);
     }
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                window.scrollTo({
-                    top: targetElement.offsetTop - 100,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
     
     // Animate elements when they come into view
     const animateOnScroll = () => {
