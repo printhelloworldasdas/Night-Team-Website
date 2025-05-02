@@ -203,18 +203,7 @@ nav a:hover::after {
     border-color: var(--accent-color);
 }
 
-.cta-button.social-btn {
-    background-color: var(--accent-color);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 0.5rem;
-}
-
-.cta-button.social-btn:hover {
-    background-color: transparent;
-    color: var(--accent-color);
-}
+/* Se eliminaron los estilos .cta-button.social-btn ya que este botón ya no existe */
 
 .members {
     display: grid;
