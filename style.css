@@ -5,6 +5,8 @@
     --text-color: #e0e0e0;
     --moon-glow: #f5f3ce;
     --secondary-color: #4a3d6d;
+    --discord-color: #5865F2;
+    --codeberg-color: #2185d0;
 }
 
 /* Custom Cursor */
@@ -170,6 +172,7 @@ nav a:hover::after {
     gap: 1rem;
     justify-content: center;
     margin-top: 2rem;
+    flex-wrap: wrap;
 }
 
 .cta-button {
@@ -198,6 +201,19 @@ nav a:hover::after {
 
 .cta-button.secondary:hover {
     border-color: var(--accent-color);
+}
+
+.cta-button.social-btn {
+    background-color: var(--accent-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.cta-button.social-btn:hover {
+    background-color: transparent;
+    color: var(--accent-color);
 }
 
 .members {
@@ -344,12 +360,114 @@ nav a:hover::after {
     text-decoration: none;
 }
 
+/* Social Media Page Styles */
+.social-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin: 3rem 0;
+}
+
+.social-card {
+    background-color: var(--darker-bg);
+    border-radius: 10px;
+    padding: 2rem;
+    text-align: center;
+    transition: transform 0.3s, box-shadow 0.3s;
+    border: 1px solid #222;
+}
+
+.social-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(106, 13, 173, 0.2);
+}
+
+.social-icon {
+    font-size: 3rem;
+    margin-bottom: 1.5rem;
+}
+
+.social-card.discord {
+    border-top: 4px solid var(--discord-color);
+}
+
+.social-card.codeberg {
+    border-top: 4px solid var(--codeberg-color);
+}
+
+.social-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.social-card p {
+    margin-bottom: 2rem;
+    color: #aaa;
+}
+
+.social-link {
+    display: inline-block;
+    padding: 0.8rem 1.8rem;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: all 0.3s;
+}
+
+.social-card.discord .social-link {
+    background-color: var(--discord-color);
+    color: white;
+}
+
+.social-card.codeberg .social-link {
+    background-color: var(--codeberg-color);
+    color: white;
+}
+
+.social-card.discord .social-link:hover {
+    background-color: transparent;
+    color: var(--discord-color);
+    border: 1px solid var(--discord-color);
+}
+
+.social-card.codeberg .social-link:hover {
+    background-color: transparent;
+    color: var(--codeberg-color);
+    border: 1px solid var(--codeberg-color);
+}
+
+.fa-discord {
+    color: var(--discord-color);
+}
+
+.fa-code-branch {
+    color: var(--codeberg-color);
+}
+
 footer {
     text-align: center;
     padding: 2rem 0;
     border-top: 1px solid #222;
     margin-top: 3rem;
     font-size: 0.9rem;
+}
+
+.social-links {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+.social-links a {
+    color: var(--text-color);
+    font-size: 1.5rem;
+    transition: all 0.3s;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+    transform: translateY(-3px);
 }
 
 .subtext {
@@ -379,6 +497,8 @@ footer {
     
     nav ul {
         gap: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
     }
     
     .hero h1 {
@@ -404,7 +524,7 @@ footer {
         height: 60px;
     }
     
-    .projects {
+    .projects, .social-grid {
         grid-template-columns: 1fr;
     }
 }
@@ -430,7 +550,7 @@ footer {
         font-size: 2rem;
     }
     
-    .member-card, .project-card {
+    .member-card, .project-card, .social-card {
         padding: 1rem;
     }
 }
