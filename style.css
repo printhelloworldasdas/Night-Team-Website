@@ -9,7 +9,6 @@
     --codeberg-color: #2185d0;
 }
 
-/* Custom Cursor */
 html {
     cursor: url('images/cursor.png'), auto;
 }
@@ -82,12 +81,8 @@ header {
 }
 
 @keyframes glow {
-    from {
-        text-shadow: 0 0 5px var(--accent-color);
-    }
-    to {
-        text-shadow: 0 0 15px var(--accent-color), 0 0 20px var(--moon-glow);
-    }
+    from { text-shadow: 0 0 5px var(--accent-color); }
+    to { text-shadow: 0 0 15px var(--accent-color), 0 0 20px var(--moon-glow); }
 }
 
 .logo-text {
@@ -203,8 +198,6 @@ nav a:hover::after {
     border-color: var(--accent-color);
 }
 
-/* Se eliminaron los estilos .cta-button.social-btn ya que este botón ya no existe */
-
 .members {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -313,11 +306,6 @@ nav a:hover::after {
     margin-bottom: 1rem;
 }
 
-.project-description {
-    min-height: 60px;
-    margin-bottom: 1rem;
-}
-
 .project-links {
     display: flex;
     flex-direction: column;
@@ -349,7 +337,6 @@ nav a:hover::after {
     text-decoration: none;
 }
 
-/* Social Media Page Styles */
 .social-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
