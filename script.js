@@ -1,20 +1,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Create animated stars background
     const starsContainer = document.querySelector('.stars-container');
-    const starCount = 400; // Aumentado a 400 estrellas
+    const starCount = 400;
     
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.classList.add('star');
         
-        // Random star properties
-        const size = Math.random() * 4; // Tamaño más variado (0-4px)
+        const size = Math.random() * 4;
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        const opacity = 0.2 + Math.random() * 0.8; // Opacidad mínima 0.2
-        const duration = 3 + Math.random() * 7 + 's'; // Duración más variada
-        const delay = Math.random() * 10 + 's'; // Delay más variado
-        const scale = 1 + Math.random() * 0.5; // Efecto de escala aleatorio
+        const opacity = 0.2 + Math.random() * 0.8;
+        const duration = 3 + Math.random() * 7 + 's';
+        const delay = Math.random() * 10 + 's';
+        const scale = 1 + Math.random() * 0.5;
         
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
@@ -25,7 +24,6 @@ document.addEventListener('DOMContentLoaded', function() {
         star.style.setProperty('--scale', scale);
         star.style.animationDelay = delay;
         
-        // Añadir ocasionalmente estrellas más brillantes
         if (Math.random() > 0.9) {
             star.style.boxShadow = `0 0 ${size * 2}px ${size / 2}px rgba(255, 255, 255, 0.3)`;
         }
@@ -66,7 +64,7 @@ document.addEventListener('DOMContentLoaded', function() {
     
     // Animate elements when they come into view
     const animateOnScroll = () => {
-        const elements = document.querySelectorAll('.member-card, .project-card');
+        const elements = document.querySelectorAll('.member-card, .project-card, .social-card');
         
         elements.forEach(element => {
             const elementPosition = element.getBoundingClientRect().top;
@@ -80,7 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
     };
     
     // Set initial state for animated elements
-    document.querySelectorAll('.member-card, .project-card').forEach(element => {
+    document.querySelectorAll('.member-card, .project-card, .social-card').forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(20px)';
         element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
