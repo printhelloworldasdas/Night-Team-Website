@@ -1,119 +1,92 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Create animated stars background
-    const createStars = () => {
-        const starsContainer = document.querySelector('.stars-container');
-        const starCount = 400;
+    const starsContainer = document.querySelector('.stars-container');
+    const starCount = 400;
+    
+    for (let i = 0; i < starCount; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
         
-        for (let i = 0; i < starCount; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            
-            // Configuración de propiedades
-            const size = Math.random() * 4;
-            const starProps = {
-                width: `${size}px`,
-                height: `${size}px`,
-                left: `${Math.random() * 100}%`,
-                top: `${Math.random() * 100}%`,
-                opacity: 0.2 + Math.random() * 0.8,
-                duration: `${3 + Math.random() * 7}s`,
-                delay: `${Math.random() * 10}s`,
-                scale: 1 + Math.random() * 0.5
-            };
-            
-            // Aplicar estilos
-            Object.assign(star.style, {
-                width: starProps.width,
-                height: starProps.height,
-                left: starProps.left,
-                top: starProps.top,
-                animationDelay: starProps.delay
-            });
-            
-            star.style.setProperty('--opacity', starProps.opacity);
-            star.style.setProperty('--duration', starProps.duration);
-            star.style.setProperty('--scale', starProps.scale);
-            
-            if (Math.random() > 0.9) {
-                star.style.boxShadow = `0 0 ${size * 2}px ${size / 2}px rgba(255, 255, 255, 0.3)`;
-            }
-            
-            starsContainer.appendChild(star);
+        const size = Math.random() * 4;
+        const x = Math.random() * 100;
+        const y = Math.random() * 100;
+        const opacity = 0.2 + Math.random() * 0.8;
+        const duration = 3 + Math.random() * 7 + 's';
+        const delay = Math.random() * 10 + 's';
+        const scale = 1 + Math.random() * 0.5;
+        
+        star.style.width = `${size}px`;
+        star.style.height = `${size}px`;
+        star.style.left = `${x}%`;
+        star.style.top = `${y}%`;
+        star.style.setProperty('--opacity', opacity);
+        star.style.setProperty('--duration', duration);
+        star.style.setProperty('--scale', scale);
+        star.style.animationDelay = delay;
+        
+        if (Math.random() > 0.9) {
+            star.style.boxShadow = `0 0 ${size * 2}px ${size / 2}px rgba(255, 255, 255, 0.3)`;
         }
-    };
+        
+        starsContainer.appendChild(star);
+    }
 
-    // Typing effect with improved performance
-    const initTypingEffect = () => {
+    // Typing effect for the home page title
+    if (document.querySelector('.hero h1')) {
         const heroTitle = document.querySelector('.hero h1');
-        if (!heroTitle) return;
-
         const originalText = heroTitle.textContent;
         heroTitle.textContent = '';
-        let i = 0;
         
-        const typeCharacter = () => {
+        let i = 0;
+        const typingEffect = setInterval(() => {
             if (i < originalText.length) {
                 heroTitle.textContent += originalText.charAt(i);
                 i++;
-                requestAnimationFrame(typeCharacter);
+            } else {
+                clearInterval(typingEffect);
             }
-        };
-        
-        requestAnimationFrame(typeCharacter);
-    };
-
-    // Smoother moon animation using requestAnimationFrame
-    const animateMoon = () => {
-        const moon = document.querySelector('.moon-phase');
-        if (!moon) return;
-
+        }, 100);
+    }
+    
+    // Moon phase animation
+    const moon = document.querySelector('.moon-phase');
+    if (moon) {
         let phase = 0;
-        const updateMoon = () => {
-            phase = (phase + 0.005) % 1;  // Reduced increment for smoother animation
+        setInterval(() => {
+            phase = (phase + 0.01) % 1;
             const shadowSize = Math.abs(phase - 0.5) * 50;
             const shadowPosition = phase < 0.5 ? -25 : 25;
             
             moon.style.boxShadow = 
                 `inset ${shadowPosition}px 0px 0 ${shadowSize}px var(--moon-glow)`;
-            
-            requestAnimationFrame(updateMoon);
-        };
-        
-        updateMoon();
-    };
-
-    // Scroll animation with Intersection Observer
-    const initScrollAnimations = () => {
+        }, 100);
+    }
+    
+    // Animate elements when they come into view
+    const animateOnScroll = () => {
         const elements = document.querySelectorAll('.member-card, .project-card, .social-card');
         
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px'
-        });
-
         elements.forEach(element => {
-            element.style.opacity = '0';
-            element.style.transform = 'translateY(20px)';
-            element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-            observer.observe(element);
+            const elementPosition = element.getBoundingClientRect().top;
+            const screenPosition = window.innerHeight / 1.3;
+            
+            if (elementPosition < screenPosition) {
+                element.style.opacity = '1';
+                element.style.transform = 'translateY(0)';
+            }
         });
     };
-
-    // Initialize all effects
-    const init = () => {
-        createStars();
-        initTypingEffect();
-        animateMoon();
-        initScrollAnimations();
-    };
-
-    // Start initialization
-    init();
+    
+    // Set initial state for animated elements
+    document.querySelectorAll('.member-card, .project-card, .social-card').forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    });
+    
+    // Run once on page load
+    animateOnScroll();
+    
+    // Run on scroll
+    window.addEventListener('scroll', animateOnScroll);
 });
