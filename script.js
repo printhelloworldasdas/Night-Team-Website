@@ -129,20 +129,91 @@ document.addEventListener('DOMContentLoaded', function() {
         let gameInterval;
         let isGameRunning = false;
         
+        // Load astronaut image
+        const astronautImg = new Image();
+        astronautImg.src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCA1MTIgNTEyIj48Y2lyY2xlIGN4PSIyNTYiIGN5PSIyNTYiIHI9IjI0MCIgZmlsbD0iI2QxZDJkMyIvPjxjaXJjbGUgY3g9IjI1NiIgY3k9IjE2MCIgcj0iODAiIGZpbGw9IiNmNWYzY2UiLz48Y2lyY2xlIGN4PSIyNTYiIGN5PSIxNjAiIHI9IjQwIiBmaWxsPSIjMDAwIi8+PHBhdGggZD0iTTE2MCAzMjBjMC00MCA0MC04MCA4MC04MHM4MCA0MCA4MCA4MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEwIi8+PC9zdmc+';
+        
         // Draw functions
         function drawSnake() {
+            // Draw body (square without top and right outlines)
             ctx.fillStyle = '#6a0dad';
-            snake.forEach(segment => {
+            for (let i = 1; i < snake.length; i++) {
+                const segment = snake[i];
                 ctx.fillRect(segment.x, segment.y, 20, 20);
+                
+                // Only draw left and bottom borders
                 ctx.strokeStyle = '#f5f3ce';
-                ctx.strokeRect(segment.x, segment.y, 20, 20);
-            });
+                ctx.beginPath();
+                ctx.moveTo(segment.x, segment.y + 20); // Left side
+                ctx.lineTo(segment.x, segment.y);
+                ctx.lineTo(segment.x + 20, segment.y); // Bottom side
+                ctx.stroke();
+            }
+            
+            // Draw head (circle with astronaut)
+            if (snake.length > 0) {
+                const head = snake[0];
+                
+                // Head base (circle)
+                ctx.beginPath();
+                ctx.arc(head.x + 10, head.y + 10, 10, 0, Math.PI * 2);
+                ctx.fillStyle = '#d1d2d3';
+                ctx.fill();
+                
+                // Astronaut helmet
+                ctx.beginPath();
+                ctx.arc(head.x + 10, head.y + 5, 8, 0, Math.PI * 2);
+                ctx.fillStyle = '#f5f3ce';
+                ctx.fill();
+                
+                // Astronaut visor
+                ctx.beginPath();
+                ctx.arc(head.x + 10, head.y + 5, 4, 0, Math.PI * 2);
+                ctx.fillStyle = '#000';
+                ctx.fill();
+                
+                // Smile
+                ctx.beginPath();
+                ctx.arc(head.x + 10, head.y + 12, 5, 0, Math.PI);
+                ctx.strokeStyle = '#000';
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            }
         }
         
         function drawFood() {
             ctx.fillStyle = '#ff4757';
             ctx.beginPath();
-            ctx.arc(food.x + 10, food.y + 10, 10, 0, Math.PI * 2);
+            
+            // Draw star-shaped food
+            const spikes = 5;
+            const outerRadius = 10;
+            const innerRadius = 5;
+            const cx = food.x + 10;
+            const cy = food.y + 10;
+            
+            let rot = Math.PI/2*3;
+            let x = cx;
+            let y = cy;
+            const step = Math.PI/spikes;
+            
+            ctx.beginPath();
+            ctx.moveTo(cx, cy - outerRadius);
+            
+            for(let i = 0; i < spikes; i++) {
+                x = cx + Math.cos(rot)*outerRadius;
+                y = cy + Math.sin(rot)*outerRadius;
+                ctx.lineTo(x,y);
+                rot += step;
+                
+                x = cx + Math.cos(rot)*innerRadius;
+                y = cy + Math.sin(rot)*innerRadius;
+                ctx.lineTo(x,y);
+                rot += step;
+            }
+            
+            ctx.lineTo(cx, cy - outerRadius);
+            ctx.closePath();
             ctx.fill();
         }
         
@@ -207,8 +278,18 @@ document.addEventListener('DOMContentLoaded', function() {
         function gameOver() {
             clearInterval(gameInterval);
             isGameRunning = false;
-            alert(`Game Over! Your score: ${score}`);
-            resetGame();
+            
+            // Custom game over message
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+            ctx.fillRect(50, 150, 300, 100);
+            
+            ctx.font = '20px "Courier New", monospace';
+            ctx.fillStyle = '#fff';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Game Over! Score: ${score}`, canvas.width/2, 190);
+            ctx.fillText('Click Restart to play again', canvas.width/2, 220);
+            
+            startButton.textContent = "Restart Game";
         }
         
         function resetGame() {
