@@ -9,15 +9,6 @@
     --codeberg-color: #2185d0;
 }
 
-/* Backup para navegadores antiguos */
-html {
-    cursor: url('images/cursor.png'), url('images/cursor.cur'), auto;
-}
-
-a, button, .clickable {
-    cursor: url('images/cursor.png'), pointer;
-}
-
 body {
     margin: 0;
     padding: 0;
