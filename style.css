@@ -41,11 +41,12 @@ body {
     border-radius: 50%;
     animation: twinkle var(--duration) infinite ease-in-out;
     opacity: 0;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
 }
 
 @keyframes twinkle {
-    0%, 100% { opacity: 0; }
-    50% { opacity: var(--opacity); }
+    0%, 100% { opacity: 0; transform: scale(1); }
+    50% { opacity: var(--opacity); transform: scale(var(--scale)); }
 }
 
 .container {
@@ -307,8 +308,34 @@ nav a:hover::after {
     margin-bottom: 1rem;
 }
 
+.project-description {
+    min-height: 60px;
+    margin-bottom: 1rem;
+}
+
 .project-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
     margin-top: 1.5rem;
+}
+
+.project-link {
+    display: block;
+    background-color: var(--darker-bg);
+    color: var(--accent-color);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    text-decoration: none;
+    border: 1px solid var(--accent-color);
+    transition: all 0.3s;
+    font-size: 0.9rem;
+}
+
+.project-link:hover {
+    background-color: var(--accent-color);
+    color: white;
+    transform: translateY(-2px);
 }
 
 .disabled-link {
@@ -375,5 +402,35 @@ footer {
     .member-avatar {
         width: 60px;
         height: 60px;
+    }
+    
+    .projects {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        padding: 1rem;
+    }
+    
+    .logo-text {
+        font-size: 1.5rem;
+    }
+    
+    nav ul {
+        gap: 0.75rem;
+    }
+    
+    .hero h1 {
+        font-size: 1.8rem;
+    }
+    
+    .page-header h1 {
+        font-size: 2rem;
+    }
+    
+    .member-card, .project-card {
+        padding: 1rem;
     }
 }
