@@ -1,19 +1,20 @@
 document.addEventListener('DOMContentLoaded', function() {
     // Create animated stars background
     const starsContainer = document.querySelector('.stars-container');
-    const starCount = 200;
+    const starCount = 400; // Aumentado a 400 estrellas
     
     for (let i = 0; i < starCount; i++) {
         const star = document.createElement('div');
         star.classList.add('star');
         
         // Random star properties
-        const size = Math.random() * 3;
+        const size = Math.random() * 4; // Tamaño más variado (0-4px)
         const x = Math.random() * 100;
         const y = Math.random() * 100;
-        const opacity = Math.random();
-        const duration = 2 + Math.random() * 5 + 's';
-        const delay = Math.random() * 5 + 's';
+        const opacity = 0.2 + Math.random() * 0.8; // Opacidad mínima 0.2
+        const duration = 3 + Math.random() * 7 + 's'; // Duración más variada
+        const delay = Math.random() * 10 + 's'; // Delay más variado
+        const scale = 1 + Math.random() * 0.5; // Efecto de escala aleatorio
         
         star.style.width = `${size}px`;
         star.style.height = `${size}px`;
@@ -21,7 +22,13 @@ document.addEventListener('DOMContentLoaded', function() {
         star.style.top = `${y}%`;
         star.style.setProperty('--opacity', opacity);
         star.style.setProperty('--duration', duration);
+        star.style.setProperty('--scale', scale);
         star.style.animationDelay = delay;
+        
+        // Añadir ocasionalmente estrellas más brillantes
+        if (Math.random() > 0.9) {
+            star.style.boxShadow = `0 0 ${size * 2}px ${size / 2}px rgba(255, 255, 255, 0.3)`;
+        }
         
         starsContainer.appendChild(star);
     }
