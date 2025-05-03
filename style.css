@@ -7,6 +7,7 @@
     --secondary-color: #4a3d6d;
     --discord-color: #5865F2;
     --codeberg-color: #2185d0;
+    --youtube-color: #FF0000;
 }
 
 /* Personalización de la barra de scroll */
@@ -92,6 +93,12 @@ header {
     font-size: 2rem;
     color: var(--accent-color);
     animation: glow 3s infinite alternate;
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+.logo-icon:hover {
+    transform: rotate(15deg);
 }
 
 @keyframes glow {
@@ -285,11 +292,39 @@ nav a:hover::after {
 .member-links a {
     color: var(--text-color);
     font-size: 1.2rem;
-    transition: color 0.3s;
+    transition: all 0.3s;
 }
 
-.member-links a:hover {
-    color: var(--accent-color);
+.member-links .fa-github {
+    color: var(--text-color);
+}
+
+.member-links .fa-github:hover {
+    color: #6e5494; /* Color de GitHub */
+}
+
+.member-links .fa-code-branch {
+    color: var(--codeberg-color);
+}
+
+.member-links .fa-code-branch:hover {
+    color: #1b6aae; /* Color más claro de Codeberg */
+}
+
+.member-links .fa-discord {
+    color: var(--discord-color);
+}
+
+.member-links .fa-discord:hover {
+    color: #4752c4; /* Color más claro de Discord */
+}
+
+.member-links .fa-youtube {
+    color: var(--youtube-color);
+}
+
+.member-links .fa-youtube:hover {
+    color: #cc0000; /* Rojo más oscuro de YouTube */
 }
 
 .projects {
@@ -545,7 +580,9 @@ footer {
     }
 }
 
-/* Snake Game Easter Egg */
+/* ===================== */
+/* CLASSIC SNAKE GAME */
+/* ===================== */
 #snake-game-container {
     position: fixed;
     top: 0;
@@ -589,6 +626,7 @@ footer {
     border-radius: 4px;
     cursor: pointer;
     transition: all 0.3s;
+    font-family: 'Courier New', monospace;
 }
 
 #snake-controls button:hover {
@@ -604,4 +642,4 @@ footer {
 
 .hidden {
     display: none !important;
-} y damelo sin cortes para copiar y pegar
+}
